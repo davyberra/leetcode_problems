@@ -1,21 +1,17 @@
 class Solution:
     def merge(self, nums1: list, m, nums2: list, n):
-        j = 0
-        temp = None
-        if m == 0:
-            nums1 = nums2
-        elif n != 0:
-            for i in range(m + n):
-                if nums1[i] == 0:
-                    nums1[i] = nums2[j]
-                    j += 1
+        temp = []
+        for i in range(m + n):
+            if i < m:
+                temp.append(nums1[i])
+            if len(nums2) > 0 and len(temp) > 0:
+                if temp[0] >= nums2[0]:
+                    nums1[i] = nums2.pop(0)
                 else:
-                    if not temp:
-                        temp = nums1[i]
-                    if temp <= nums2[j]:
-                        nums1[i] = temp
-                    else:
-                        nums1[i] = nums2[j]
-                        j += 1
+                    nums1[i] = temp.pop(0)
+            elif len(nums2) == 0:
+                nums1[i] = temp.pop(0)
+            elif len(temp) == 0:
+                nums1[i] = nums2.pop(0)
 
 
